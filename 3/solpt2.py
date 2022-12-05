@@ -1,19 +1,18 @@
 # Read the input from the file input.txt
 with open('input.txt', 'r') as f:
-    lines = f.readlines()
+    lines = [line.strip() for line in f.readlines()]
 
 # Parse the input to extract the rucksacks of each group
 groups = [lines[i:i+3] for i in range(0, len(lines), 3)]
 
-# For each group, find the item type that is common to all three members
+# For each group, find the item types that are common to all three members
 group_badge_types = []
 for group in groups:
-    # Find the common item type by intersecting the set of unique characters in each rucksack
-    common_item_type = set(group[0].strip()) & set(group[1].strip()) & set(group[2].strip())
-    # The common item type should only have one element, so take the first and only element
-    print(common_item_type)
-    badge_type = list(common_item_type)[0]
-    group_badge_types.append(badge_type)
+    # Find the common item types by intersecting the set of unique characters in each rucksack
+    common_item_types = set(group[0]) & set(group[1]) & set(group[2])
+    # The common item types should only have one or more elements
+    for badge_type in common_item_types:
+        group_badge_types.append(badge_type)
 
 # Compute the priority of each group's badge item type
 priorities = []
